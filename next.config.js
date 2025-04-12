@@ -1,13 +1,7 @@
+import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  images: {
-    domains: ['firebasestorage.googleapis.com'],
-  },
-  experimental: {
-    serverActions: true,
-  },
+
   env: {
     NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -28,9 +22,11 @@ const nextConfig = {
     }
     return config;
   },
-  middleware: {
-    path: 'src/app/middleware.ts',
-  },
+
 };
+
+if (process.env.NODE_ENV === 'development') {
+  await setupDevPlatform();
+}
 
 module.exports = nextConfig; 
